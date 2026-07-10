@@ -8,663 +8,150 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(135deg, #eef2f7 0%, #f8f9fc 100%);
-    min-height: 100vh;
-    padding: 32px;
-    color: #1a1a2e;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    padding: 36px 36px 28px;
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .header-left h1 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0f172a;
-    letter-spacing: -0.3px;
-    line-height: 1.3;
-  }
-  .header-left .subtitle {
-    font-size: 14px;
-    color: #64748b;
-    margin-top: 4px;
-    font-weight: 400;
-  }
-  .header-right {
-    text-align: right;
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.6;
-  }
-  .header-right strong { color: #0f172a; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:linear-gradient(135deg,#eef2f7 0%,#f8f9fc 100%);min-height:100vh;padding:32px;color:#1a1a2e;-webkit-font-smoothing:antialiased}
+.container{max-width:1440px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 36px 28px}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;flex-wrap:wrap;gap:16px}
+.header-left h1{font-size:26px;font-weight:700;color:#0f172a}
+.header-left .subtitle{font-size:14px;color:#64748b;margin-top:4px}
+.header-right{text-align:right;font-size:13px;color:#64748b;line-height:1.6}
+.header-right strong{color:#0f172a}
+.legend{display:flex;gap:28px;margin-bottom:28px;flex-wrap:wrap;padding:16px 20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0}
+.legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#334155;font-weight:500}
+.legend-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
 
-  .legend {
-    display: flex;
-    gap: 28px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    padding: 16px 20px;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-  }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #334155;
-    font-weight: 500;
-  }
-  .legend-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 2.5px solid #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  }
-  .legend-line {
-    width: 28px;
-    height: 3px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
+.gantt-scroll{overflow-x:auto;overflow-y:visible;border-radius:12px;border:1px solid #e2e8f0}
+.gantt-table{width:100%;min-width:1100px;border-collapse:collapse}
+.gantt-table thead th{position:sticky;top:0;z-index:10;background:#f1f5f9;padding:12px 14px;font-size:12px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid #cbd5e1;text-align:left;white-space:nowrap}
+.gantt-table thead th:first-child{left:0;z-index:12}
+.gantt-table tbody tr{transition:background 0.15s}
+.gantt-table tbody tr:hover{background:#f1f5f9}
+.gantt-table tbody td{padding:8px 14px;border-bottom:1px solid #f1f5f9;vertical-align:middle;font-size:13px}
+.gantt-table tbody tr:last-child td{border-bottom:none}
+.info-cell{position:sticky;left:0;background:#fff;z-index:2}
+.gantt-table tbody tr:hover .info-cell{background:#f1f5f9}
+.project-name{font-weight:600;font-size:15px;color:#0f172a}
+.project-meta{font-size:12px;color:#64748b;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
 
-  .gantt-scroll {
-    overflow-x: auto;
-    overflow-y: visible;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-  }
+.timeline-cell{position:relative;min-width:620px;height:80px;overflow:visible}
+.timeline-grid{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;z-index:0}
+.month-col{flex:1;position:relative;border-left:1px solid #e2e8f0}
+.month-col:first-child{border-left:none}
+.month-col:nth-child(even){background:rgba(241,245,249,0.4)}
+.month-col-label{position:absolute;top:4px;left:6px;font-size:11px;font-weight:600;color:#94a3b8}
+.milestone-layer{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;overflow:visible}
+.connector{position:absolute;top:31px;height:3px;background:#e2e8f0;z-index:1;border-radius:2px}
 
-  .gantt-table {
-    width: 100%;
-    min-width: 1100px;
-    border-collapse: collapse;
-  }
-  .gantt-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: #f1f5f9;
-    padding: 12px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #475569;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    border-bottom: 2px solid #cbd5e1;
-    text-align: left;
-    white-space: nowrap;
-  }
-  .gantt-table thead th:first-child { left: 0; z-index: 12; }
-  .gantt-table tbody tr { transition: background 0.15s; }
-  .gantt-table tbody tr:hover { background: #f1f5f9; }
-  .gantt-table tbody td {
-    padding: 8px 14px;
-    border-bottom: 1px solid #f1f5f9;
-    vertical-align: middle;
-    font-size: 13px;
-  }
-  .gantt-table tbody tr:last-child td { border-bottom: none; }
+.milestone{position:absolute;width:18px;height:18px;transform:translateX(-50%) rotate(45deg);z-index:3;cursor:pointer;transition:all 0.2s ease;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+.milestone:hover{transform:translateX(-50%) rotate(45deg) scale(1.3);box-shadow:0 3px 12px rgba(0,0,0,0.25);z-index:6}
+.milestone-group{position:absolute;top:24px;transform:translateX(-50%);z-index:3;cursor:pointer;pointer-events:none}
+.milestone-label{position:absolute;top:24px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:#475569;white-space:nowrap;text-align:center;pointer-events:auto;cursor:pointer}
+.milestone-label.flip{top:-34px}
+.milestone-date{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:9px;color:#64748b;white-space:nowrap;font-weight:500;pointer-events:auto;cursor:pointer}
+.milestone-date.flip{top:28px}
 
-  .info-cell {
-    position: sticky;
-    left: 0;
-    background: #fff;
-    z-index: 2;
-  }
-  .gantt-table tbody tr:hover .info-cell { background: #f1f5f9; }
+.milestone-import{background:#8b5cf6}
+.milestone-pv{background:#3b82f6}
+.milestone-ppap{background:#f59e0b}
+.milestone-sop{background:#10b981}
 
-  .project-name {
-    font-weight: 600;
-    font-size: 15px;
-    color: #0f172a;
-    letter-spacing: 0.2px;
-  }
-  .project-meta {
-    font-size: 12px;
-    color: #64748b;
-    margin-top: 2px;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .meta-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-  }
+.today-line{position:absolute;top:0;bottom:0;width:3px;background:#ef4444;z-index:5;pointer-events:none;box-shadow:0 0 8px rgba(239,68,68,0.5)}
+.today-label{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#ef4444;white-space:nowrap;background:#fef2f2;padding:2px 10px;border-radius:4px;border:1.5px solid #fecaca;z-index:6}
 
-  .timeline-cell {
-    position: relative;
-    min-width: 620px;
-    height: 80px;
-    overflow: visible;
-  }
-  .timeline-grid {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: flex;
-    z-index: 0;
-  }
-  .month-col {
-    flex: 1;
-    position: relative;
-    border-left: 1px solid #e2e8f0;
-  }
-  .month-col:first-child { border-left: none; }
-  .month-col:nth-child(even) { background: rgba(241, 245, 249, 0.4); }
-  .month-col-label {
-    position: absolute;
-    top: 4px;
-    left: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #94a3b8;
-    letter-spacing: 0.3px;
-  }
+.tooltip-overlay{display:none;position:fixed;z-index:999;background:#0f172a;color:#f1f5f9;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.6;box-shadow:0 8px 30px rgba(0,0,0,0.3);max-width:280px;pointer-events:none;border:1px solid #1e293b}
+.tooltip-overlay.visible{display:block}
+.tooltip-overlay .tt-title{font-weight:700;font-size:14px;color:#93c5fd;margin-bottom:2px}
+.tooltip-overlay .tt-type{display:inline-block;background:rgba(255,255,255,0.1);padding:1px 8px;border-radius:4px;font-size:11px;font-weight:500;margin-bottom:4px}
+.tooltip-overlay .tt-row{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:#cbd5e1}
+.tooltip-overlay .tt-row strong{color:#f1f5f9}
 
-  .milestone-layer {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1;
-  }
+.tbd-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#94a3b8;background:#f1f5f9;padding:2px 10px;border-radius:4px;border:1.5px dashed #cbd5e1}
 
-  /* Project connector line */
-  .connector {
-    position: absolute;
-    top: 31px;
-    height: 3px;
-    background: #e2e8f0;
-    z-index: 1;
-    border-radius: 2px;
-  }
-
-  .milestone {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    transform: translateX(-50%) rotate(45deg);
-    z-index: 3;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 2.5px solid #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  }
-  .milestone:hover {
-    transform: translateX(-50%) rotate(45deg) scale(1.3);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-    z-index: 6;
-  }
-
-  .milestone-group {
-    position: absolute;
-    top: 24px;
-    transform: translateX(-50%);
-    z-index: 3;
-    cursor: pointer;
-    pointer-events: none;
-  }
-
-  .milestone-label {
-    position: absolute;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    font-weight: 600;
-    color: #475569;
-    white-space: nowrap;
-    letter-spacing: 0.3px;
-    text-align: center;
-    pointer-events: auto;
-    cursor: pointer;
-  }
-  .milestone-date {
-    position: absolute;
-    top: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px;
-    color: #64748b;
-    white-space: nowrap;
-    font-weight: 500;
-    pointer-events: auto;
-    cursor: pointer;
-  }
-
-  .milestone-import { background: #8b5cf6; }
-  .milestone-pv { background: #3b82f6; }
-  .milestone-ppap { background: #f59e0b; }
-  .milestone-sop { background: #10b981; }
-
-  .today-line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: #ef4444;
-    z-index: 5;
-    pointer-events: none;
-    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
-  }
-  .today-label {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    font-weight: 700;
-    color: #ef4444;
-    white-space: nowrap;
-    background: #fef2f2;
-    padding: 2px 10px;
-    border-radius: 4px;
-    border: 1.5px solid #fecaca;
-    z-index: 6;
-  }
-
-  .tooltip-overlay {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    background: #0f172a;
-    color: #f1f5f9;
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    line-height: 1.6;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    max-width: 280px;
-    pointer-events: none;
-    border: 1px solid #1e293b;
-  }
-  .tooltip-overlay.visible { display: block; }
-  .tooltip-overlay .tt-title {
-    font-weight: 700;
-    font-size: 14px;
-    color: #93c5fd;
-    margin-bottom: 2px;
-  }
-  .tooltip-overlay .tt-type {
-    display: inline-block;
-    background: rgba(255,255,255,0.1);
-    padding: 1px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  .tooltip-overlay .tt-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 12px;
-    color: #cbd5e1;
-  }
-  .tooltip-overlay .tt-row strong { color: #f1f5f9; }
-
-  .tbd-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #94a3b8;
-    background: #f1f5f9;
-    padding: 2px 10px;
-    border-radius: 4px;
-    border: 1.5px dashed #cbd5e1;
-  }
-
-  .footer {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: #94a3b8;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .footer .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: #f1f5f9;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    color: #475569;
-  }
+.footer{margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#94a3b8;flex-wrap:wrap;gap:8px}
+.footer .badge{display:inline-flex;align-items:center;gap:4px;background:#f1f5f9;padding:3px 10px;border-radius:6px;font-size:11px;color:#475569}
 </style>
 </head>
 <body>
-
 <div class="container">
-  <div class="header">
-    <div class="header-left">
-      <h1>📊 项目群计划管理</h1>
-      <p class="subtitle">基于飞书文档「03.04.00 项目群计划管理」自动生成 · 2026年3月 — 2026年10月</p>
-    </div>
-    <div class="header-right">
-      <div>生成日期: <strong id="updateDate">2026-07-10</strong></div>
-      <div>共 <strong>4</strong> 个项目</div>
-    </div>
-  </div>
-
-  <div class="legend">
-    <span class="legend-item"><span class="legend-dot milestone-import"></span> 产线导入</span>
-    <span class="legend-item"><span class="legend-dot milestone-pv"></span> PV交付</span>
-    <span class="legend-item"><span class="legend-dot milestone-ppap"></span> PPAP</span>
-    <span class="legend-item"><span class="legend-dot milestone-sop"></span> SOP</span>
-    <span class="legend-item" style="margin-left:auto;color:#ef4444;font-size:12px;">📌 红色虚线 = 今天</span>
-  </div>
-
-  <div class="gantt-scroll">
-    <table class="gantt-table" id="gantt">
-      <thead>
-        <tr>
-          <th style="width:150px;left:0;">项目</th>
-          <th style="width:60px;left:150px;">客户</th>
-          <th style="width:70px;left:210px;">产品</th>
-          <th style="width:auto;left:280px;">产线</th>
-          <th style="min-width:620px;">时间线</th>
-        </tr>
-      </thead>
-      <tbody id="ganttBody"></tbody>
-    </table>
-  </div>
-
-  <div class="footer">
-    <span>🖱️ 鼠标悬停查看详情 · 每个菱形代表一个里程碑节点</span>
-    <span class="badge">⚡ 每日自动刷新 · 数据来源: 飞书文档</span>
-  </div>
+<div class="header">
+<div class="header-left"><h1>📊 项目群计划管理</h1><p class="subtitle">基于飞书文档「03.04.00 项目群计划管理」自动生成 · 2026年3月 — 2026年10月</p></div>
+<div class="header-right"><div>生成日期: <strong id="updateDate">2026-07-10</strong></div><div>共 <strong>4</strong> 个项目</div></div>
 </div>
-
+<div class="legend">
+<span class="legend-item"><span class="legend-dot milestone-import"></span> 产线导入</span>
+<span class="legend-item"><span class="legend-dot milestone-pv"></span> PV交付</span>
+<span class="legend-item"><span class="legend-dot milestone-ppap"></span> PPAP</span>
+<span class="legend-item"><span class="legend-dot milestone-sop"></span> SOP</span>
+<span class="legend-item" style="margin-left:auto;color:#ef4444;font-size:12px">📌 红色虚线 = 今天</span>
+</div>
+<div class="gantt-scroll">
+<table class="gantt-table" id="gantt">
+<thead><tr><th style="width:150px;left:0">项目</th><th style="width:60px;left:150px">客户</th><th style="width:70px;left:210px">产品</th><th style="width:auto;left:280px">产线</th><th style="min-width:620px">时间线</th></tr></thead>
+<tbody id="ganttBody"></tbody>
+</table>
+</div>
+<div class="footer"><span>🖱️ 鼠标悬停查看详情 · 每个菱形代表一个里程碑节点</span><span class="badge">⚡ 每日自动刷新 · 数据来源: 飞书文档</span></div>
+</div>
 <div class="tooltip-overlay" id="tooltip"></div>
-
 <script>
-// ====== DATA ======
-const projects = [
-  {
-    name: 'CA3048',
-    customer: '徐工重卡',
-    product: 'cECU',
-    platform: '8650',
-    line: 'cECU组装&测试3线',
-    milestones: [
-      { type: 'import', label: '产线导入', date: '2026-03-25' },
-      { type: 'pv',     label: 'PV交付',  date: '2026-04-02' },
-      { type: 'ppap',   label: 'PPAP',    date: '2026-08-15' },
-      { type: 'sop',    label: 'SOP',     date: '2026-09-20' },
-    ]
-  },
-  {
-    name: 'CA132602',
-    customer: '一汽解放',
-    product: 'cECU',
-    platform: '8650',
-    line: 'cECU组装&测试3线',
-    milestones: [
-      { type: 'import', label: '产线导入', date: '2026-03-25' },
-      { type: 'pv',     label: 'PV交付',  date: '2026-06-10' },
-      { type: 'ppap',   label: 'PPAP',    date: '2026-09-15' },
-      { type: 'sop',    label: 'SOP',     date: '2026-09-30' },
-    ]
-  },
-  {
-    name: 'AD2407',
-    customer: '—',
-    product: '补盲雷达',
-    platform: '—',
-    line: '补盲雷达组装&测试1线',
-    milestones: [
-      { type: 'import', label: '产线导入', date: null, note: 'TBD' },
-      { type: 'pv',     label: 'PV交付',  date: null, note: 'TBD' },
-      { type: 'ppap',   label: 'PPAP',    date: '2026-08-20' },
-      { type: 'sop',    label: 'SOP',     date: '2026-08-30' },
-    ]
-  },
-  {
-    name: 'AD2603',
-    customer: '上汽大通-易森动力',
-    product: '无人物流车',
-    platform: '8650',
-    line: '无人物流车1线',
-    milestones: [
-      { type: 'import', label: '产线导入', date: '2026-08-20' },
-      { type: 'pv',     label: 'PV交付',  date: null, note: 'N.A' },
-      { type: 'ppap',   label: 'PPAP',    date: '2026-08-25' },
-      { type: 'sop',    label: 'SOP',     date: '2026-08-30' },
-    ]
-  }
-];
+const projects=[{name:'CA3048',customer:'徐工重卡',product:'cECU',platform:'8650',line:'cECU组装&测试3线',milestones:[{type:'import',label:'产线导入',date:'2026-03-25'},{type:'pv',label:'PV交付',date:'2026-04-02'},{type:'ppap',label:'PPAP',date:'2026-08-15'},{type:'sop',label:'SOP',date:'2026-09-20'}]},{name:'CA132602',customer:'一汽解放',product:'cECU',platform:'8650',line:'cECU组装&测试3线',milestones:[{type:'import',label:'产线导入',date:'2026-03-25'},{type:'pv',label:'PV交付',date:'2026-06-10'},{type:'ppap',label:'PPAP',date:'2026-09-15'},{type:'sop',label:'SOP',date:'2026-09-30'}]},{name:'AD2407',customer:'—',product:'补盲雷达',platform:'—',line:'补盲雷达组装&测试1线',milestones:[{type:'import',label:'产线导入',date:null,note:'TBD'},{type:'pv',label:'PV交付',date:null,note:'TBD'},{type:'ppap',label:'PPAP',date:'2026-08-20'},{type:'sop',label:'SOP',date:'2026-08-30'}]},{name:'AD2603',customer:'上汽大通-易森动力',product:'无人物流车',platform:'8650',line:'无人物流车1线',milestones:[{type:'import',label:'产线导入',date:'2026-08-20'},{type:'pv',label:'PV交付',date:null,note:'N.A'},{type:'ppap',label:'PPAP',date:'2026-08-25'},{type:'sop',label:'SOP',date:'2026-08-30'}]}];
+const typeMeta={import:{cls:'import',label:'产线导入'},pv:{cls:'pv',label:'PV交付'},ppap:{cls:'ppap',label:'PPAP'},sop:{cls:'sop',label:'SOP'}};
+const S=new Date(2026,2,1),E=new Date(2026,9,31),T=E-S;
+function pct(d){if(!d)return null;const t=new Date(d);return isNaN(t.getTime())?null:Math.max(0,Math.min(100,((t-S)/T)*100))}
+function fmt(d){if(!d)return'TBD';const t=new Date(d);return isNaN(t.getTime())?String(d):t.getMonth()+1+'月'+t.getDate()+'日'}
 
-const typeMeta = {
-  import: { cls: 'import', label: '产线导入' },
-  pv:     { cls: 'pv',     label: 'PV交付' },
-  ppap:   { cls: 'ppap',   label: 'PPAP' },
-  sop:    { cls: 'sop',    label: 'SOP' }
-};
+const ttEl=document.getElementById('tooltip');let ttTimer;
+function showTT(e,h){clearTimeout(ttTimer);ttEl.innerHTML=h;ttEl.classList.add('visible');const r=e.target.getBoundingClientRect();let x=r.left+r.width/2-140,y=r.top-12;if(y-ttEl.offsetHeight<8)y=r.bottom+12;x=Math.max(8,Math.min(x,window.innerWidth-288));ttEl.style.left=x+'px';ttEl.style.top=Math.max(8,y-ttEl.offsetHeight-8)+'px'}
+function hideTT(){ttTimer=setTimeout(()=>ttEl.classList.remove('visible'),80)}
 
-const TIMELINE_START = new Date(2026, 2, 1);
-const TIMELINE_END   = new Date(2026, 9, 31);
-const TOTAL_MS       = TIMELINE_END - TIMELINE_START;
-
-function toPct(d) {
-  if (!d) return null;
-  const t = typeof d === 'string' ? new Date(d) : d;
-  if (isNaN(t.getTime())) return null;
-  return Math.max(0, Math.min(100, ((t - TIMELINE_START) / TOTAL_MS) * 100));
-}
-
-function fmt(d) {
-  if (!d) return 'TBD';
-  const t = typeof d === 'string' ? new Date(d) : d;
-  if (isNaN(t.getTime())) return String(d);
-  return `${t.getMonth()+1}月${t.getDate()}日`;
-}
-
-// ====== TOOLTIP ======
-const ttEl = document.getElementById('tooltip');
-let ttTimer = null;
-
-function showTT(e, html) {
-  clearTimeout(ttTimer);
-  ttEl.innerHTML = html;
-  ttEl.classList.add('visible');
-  const rect = e.target.getBoundingClientRect();
-  let x = rect.left + rect.width / 2 - 140;
-  let y = rect.top - 12;
-  if (y - ttEl.offsetHeight < 8) y = rect.bottom + 12;
-  x = Math.max(8, Math.min(x, window.innerWidth - 288));
-  ttEl.style.left = x + 'px';
-  ttEl.style.top = Math.max(8, y - ttEl.offsetHeight - 8) + 'px';
-}
-
-function hideTT() {
-  ttTimer = setTimeout(() => ttEl.classList.remove('visible'), 80);
-}
-
-// ====== BUILD TIMELINE ======
-function buildTimeline(proj) {
-  const cell = document.createElement('div');
-  cell.className = 'timeline-cell';
-  cell.style.position = 'relative';
-
-  // Month grid
-  const grid = document.createElement('div');
-  grid.className = 'timeline-grid';
-  for (let m = 3; m <= 10; m++) {
-    const col = document.createElement('div');
-    col.className = 'month-col';
-    const lbl = document.createElement('span');
-    lbl.className = 'month-col-label';
-    lbl.textContent = `${m}月`;
-    col.appendChild(lbl);
-    grid.appendChild(col);
-  }
+function buildTimeline(proj){
+  const cell=document.createElement('div');cell.className='timeline-cell';cell.style.position='relative';
+  const grid=document.createElement('div');grid.className='timeline-grid';
+  for(let m=3;m<=10;m++){const col=document.createElement('div');col.className='month-col';const lbl=document.createElement('span');lbl.className='month-col-label';lbl.textContent=m+'月';col.appendChild(lbl);grid.appendChild(col)}
   cell.appendChild(grid);
-
-  // Milestones layer
-  const layer = document.createElement('div');
-  layer.className = 'milestone-layer';
-
-  // Get all milestone positions for connector line
-  const positions = [];
-  proj.milestones.forEach(m => {
-    const pct = toPct(m.date);
-    if (pct !== null) {
-      positions.push({ pct, milestone: m });
-    }
-  });
-
-  // Draw connector line between milestones
-  if (positions.length >= 2) {
-    const first = positions[0].pct;
-    const last = positions[positions.length - 1].pct;
-    const connector = document.createElement('div');
-    connector.className = 'connector';
-    connector.style.left = first + '%';
-    connector.style.width = (last - first) + '%';
-    layer.appendChild(connector);
+  const layer=document.createElement('div');layer.className='milestone-layer';
+  const positions=[];
+  proj.milestones.forEach(m=>{const pp=pct(m.date);if(pp!==null)positions.push({pct:pp,milestone:m})});
+  if(positions.length>=2){const c=document.createElement('div');c.className='connector';c.style.left=positions[0].pct+'%';c.style.width=(positions[positions.length-1].pct-positions[0].pct)+'%';layer.appendChild(c)}
+  // Detect close milestones and alternate labels
+  const flipMap=new Array(proj.milestones.length).fill(false);
+  for(let i=1;i<positions.length;i++){
+    const prevPct=positions[i-1].pct,currPct=positions[i].pct;
+    if(currPct-prevPct<8)flipMap[i]=!flipMap[i-1];
   }
-
-  // Draw milestones
-  proj.milestones.forEach(m => {
-    const pct = toPct(m.date);
-    const meta = typeMeta[m.type];
-
-    if (pct !== null) {
-      // Group container (not rotated)
-      const group = document.createElement('div');
-      group.className = 'milestone-group';
-      group.style.left = pct + '%';
-      group.addEventListener('mouseenter', e => showTT(e, `
-        <div class="tt-title">${proj.name}</div>
-        <span class="tt-type" style="background:rgba(255,255,255,0.1)">${meta.label}</span>
-        <div class="tt-row"><span>📅 日期</span><strong>${fmt(m.date)}</strong></div>
-        <div class="tt-row"><span>🏭 产线</span><strong>${proj.line}</strong></div>
-        ${m.type === 'sop' ? '<div class="tt-row" style="color:#6ee7b7;">🎉 项目完成</div>' : ''}
-      `));
-      group.addEventListener('mouseleave', hideTT);
-
-      // Diamond (rotated 45deg)
-      const dot = document.createElement('div');
-      dot.className = `milestone milestone-${m.type}`;
-      group.appendChild(dot);
-
-      // Date label above (horizontal, not rotated)
-      const dateLbl = document.createElement('span');
-      dateLbl.className = 'milestone-date';
-      dateLbl.textContent = fmt(m.date);
-      group.appendChild(dateLbl);
-
-      // Phase label below (horizontal, not rotated)
-      const lbl = document.createElement('span');
-      lbl.className = 'milestone-label';
-      lbl.textContent = meta.label;
-      group.appendChild(lbl);
-
+  proj.milestones.forEach((m,idx)=>{
+    const pp=pct(m.date),meta=typeMeta[m.type];
+    if(pp!==null){
+      const group=document.createElement('div');group.className='milestone-group';group.style.left=pp+'%';
+      group.addEventListener('mouseenter',e=>showTT(e,`<div class="tt-title">${proj.name}</div><span class="tt-type" style="background:rgba(255,255,255,0.1)">${meta.label}</span><div class="tt-row"><span>📅 日期</span><strong>${fmt(m.date)}</strong></div><div class="tt-row"><span>🏭 产线</span><strong>${proj.line}</strong></div>${m.type==='sop'?'<div class="tt-row" style="color:#6ee7b7">🎉 项目完成</div>':''}`));
+      group.addEventListener('mouseleave',hideTT);
+      const dot=document.createElement('div');dot.className='milestone milestone-'+m.type;group.appendChild(dot);
+      const flipped=flipMap[idx];
+      const dl=document.createElement('span');dl.className='milestone-date'+(flipped?' flip':'');dl.textContent=fmt(m.date);group.appendChild(dl);
+      const lbl=document.createElement('span');lbl.className='milestone-label'+(flipped?' flip':'');lbl.textContent=meta.label;group.appendChild(lbl);
       layer.appendChild(group);
-    } else {
-      // TBD / N.A - show as badge
-      const tbd = document.createElement('span');
-      tbd.className = 'tbd-badge';
-      tbd.style.position = 'absolute';
-      tbd.style.top = '22px';
-      const offsetMap = { import: '5%', pv: '20%', ppap: '35%', sop: '50%' };
-      tbd.style.left = offsetMap[m.type] || '60%';
-      tbd.textContent = `⏳ ${m.note}`;
-      tbd.addEventListener('mouseenter', e => showTT(e, `
-        <div class="tt-title">${proj.name}</div>
-        <span class="tt-type" style="background:rgba(148,163,184,0.2);color:#cbd5e1;">${meta.label}</span>
-        <div class="tt-row"><span>状态</span><strong style="color:#fbbf24;">待确认</strong></div>
-      `));
-      tbd.addEventListener('mouseleave', hideTT);
+    }else{
+      const tbd=document.createElement('span');tbd.className='tbd-badge';tbd.style.position='absolute';tbd.style.top='30px';
+      const off={import:'5%',pv:'22%',ppap:'40%',sop:'58%'};tbd.style.left=off[m.type]||'60%';
+      tbd.textContent='⏳ '+(m.note||'TBD');
+      tbd.addEventListener('mouseenter',e=>showTT(e,`<div class="tt-title">${proj.name}</div><span class="tt-type" style="background:rgba(148,163,184,0.2);color:#cbd5e1">${meta.label}</span><div class="tt-row"><span>状态</span><strong style="color:#fbbf24">待确认</strong></div>`));
+      tbd.addEventListener('mouseleave',hideTT);
       layer.appendChild(tbd);
     }
   });
-
   cell.appendChild(layer);
-
-  // Today line
-  const todayPct = toPct(new Date(2026, 6, 9));
-  if (todayPct !== null) {
-    const tl = document.createElement('div');
-    tl.className = 'today-line';
-    tl.style.left = todayPct + '%';
-    const tlbl = document.createElement('span');
-    tlbl.className = 'today-label';
-    tlbl.textContent = '📌 今天';
-    tl.appendChild(tlbl);
-    cell.appendChild(tl);
-  }
-
+  const tp=pct(new Date(2026,6,9));
+  if(tp!==null){const tl=document.createElement('div');tl.className='today-line';tl.style.left=tp+'%';const tlb=document.createElement('span');tlb.className='today-label';tlb.textContent='📌 今天';tl.appendChild(tlb);cell.appendChild(tl)}
   return cell;
 }
 
-// ====== RENDER ======
-const tbody = document.getElementById('ganttBody');
-projects.forEach(p => {
-  const tr = document.createElement('tr');
-
-  const td1 = document.createElement('td');
-  td1.className = 'info-cell';
-  td1.innerHTML = `<div class="project-name">${p.name}</div><div class="project-meta"><span class="meta-tag">${p.platform}</span></div>`;
-  tr.appendChild(td1);
-
-  const td2 = document.createElement('td');
-  td2.className = 'info-cell';
-  td2.style.left = '150px';
-  td2.style.fontSize = '13px';
-  td2.style.color = '#334155';
-  td2.textContent = p.customer;
-  tr.appendChild(td2);
-
-  const td3 = document.createElement('td');
-  td3.className = 'info-cell';
-  td3.style.left = '210px';
-  td3.style.fontSize = '13px';
-  td3.style.color = '#334155';
-  td3.textContent = p.product;
-  tr.appendChild(td3);
-
-  const td4 = document.createElement('td');
-  td4.className = 'info-cell';
-  td4.style.left = '280px';
-  td4.style.fontSize = '13px';
-  td4.style.color = '#334155';
-  td4.textContent = p.line;
-  tr.appendChild(td4);
-
-  const td5 = document.createElement('td');
-  td5.style.padding = '4px 14px';
-  td5.appendChild(buildTimeline(p));
-  tr.appendChild(td5);
-
+const tbody=document.getElementById('ganttBody');
+projects.forEach(p=>{const tr=document.createElement('tr');
+  const td1=document.createElement('td');td1.className='info-cell';td1.innerHTML=`<div class="project-name">${p.name}</div><div class="project-meta"><span class="meta-tag">${p.platform}</span></div>`;tr.appendChild(td1);
+  const td2=document.createElement('td');td2.className='info-cell';td2.style.left='150px';td2.style.fontSize='13px';td2.style.color='#334155';td2.textContent=p.customer;tr.appendChild(td2);
+  const td3=document.createElement('td');td3.className='info-cell';td3.style.left='210px';td3.style.fontSize='13px';td3.style.color='#334155';td3.textContent=p.product;tr.appendChild(td3);
+  const td4=document.createElement('td');td4.className='info-cell';td4.style.left='280px';td4.style.fontSize='13px';td4.style.color='#334155';td4.textContent=p.line;tr.appendChild(td4);
+  const td5=document.createElement('td');td5.style.padding='4px 14px';td5.appendChild(buildTimeline(p));tr.appendChild(td5);
   tbody.appendChild(tr);
 });
 </script>
