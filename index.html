@@ -215,10 +215,18 @@
     z-index: 6;
   }
 
+  .milestone-group {
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 3;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
   .milestone-label {
     position: absolute;
     top: 22px;
-    left: 50%;
+    left: 0;
     transform: translateX(-50%);
     font-size: 10px;
     font-weight: 600;
@@ -226,16 +234,20 @@
     white-space: nowrap;
     letter-spacing: 0.3px;
     text-align: center;
+    pointer-events: auto;
+    cursor: pointer;
   }
   .milestone-date {
     position: absolute;
     top: -18px;
-    left: 50%;
+    left: 0;
     transform: translateX(-50%);
     font-size: 9px;
     color: #64748b;
     white-space: nowrap;
     font-weight: 500;
+    pointer-events: auto;
+    cursor: pointer;
   }
 
   .milestone-import { background: #8b5cf6; }
@@ -543,32 +555,37 @@ function buildTimeline(proj) {
     const meta = typeMeta[m.type];
 
     if (pct !== null) {
-      // Diamond milestone
-      const dot = document.createElement('div');
-      dot.className = `milestone milestone-${m.type}`;
-      dot.style.left = pct + '%';
-
-      // Date label above
-      const dateLbl = document.createElement('span');
-      dateLbl.className = 'milestone-date';
-      dateLbl.textContent = fmt(m.date);
-      dot.appendChild(dateLbl);
-
-      // Phase label below
-      const lbl = document.createElement('span');
-      lbl.className = 'milestone-label';
-      lbl.textContent = meta.label;
-      dot.appendChild(lbl);
-
-      dot.addEventListener('mouseenter', e => showTT(e, `
+      // Group container (not rotated)
+      const group = document.createElement('div');
+      group.className = 'milestone-group';
+      group.style.left = pct + '%';
+      group.addEventListener('mouseenter', e => showTT(e, `
         <div class="tt-title">${proj.name}</div>
         <span class="tt-type" style="background:rgba(255,255,255,0.1)">${meta.label}</span>
         <div class="tt-row"><span>📅 日期</span><strong>${fmt(m.date)}</strong></div>
         <div class="tt-row"><span>🏭 产线</span><strong>${proj.line}</strong></div>
         ${m.type === 'sop' ? '<div class="tt-row" style="color:#6ee7b7;">🎉 项目完成</div>' : ''}
       `));
-      dot.addEventListener('mouseleave', hideTT);
-      layer.appendChild(dot);
+      group.addEventListener('mouseleave', hideTT);
+
+      // Diamond (rotated 45deg)
+      const dot = document.createElement('div');
+      dot.className = `milestone milestone-${m.type}`;
+      group.appendChild(dot);
+
+      // Date label above (horizontal, not rotated)
+      const dateLbl = document.createElement('span');
+      dateLbl.className = 'milestone-date';
+      dateLbl.textContent = fmt(m.date);
+      group.appendChild(dateLbl);
+
+      // Phase label below (horizontal, not rotated)
+      const lbl = document.createElement('span');
+      lbl.className = 'milestone-label';
+      lbl.textContent = meta.label;
+      group.appendChild(lbl);
+
+      layer.appendChild(group);
     } else {
       // TBD / N.A - show as badge
       const tbd = document.createElement('span');
