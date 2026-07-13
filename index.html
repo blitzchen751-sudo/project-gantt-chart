@@ -75,7 +75,7 @@ body{font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","Pin
 <div class="container">
 <div class="header">
 <div class="header-left"><h1>📊 项目群计划管理</h1><p class="subtitle">基于飞书文档「03.04.00 项目群计划管理」自动生成 · 2026年3月 — 2026年10月</p></div>
-<div class="header-right"><div>生成日期: <strong id="updateDate">2026-07-10</strong></div><div>共 <strong>4</strong> 个项目</div></div>
+<div class="header-right"><div>生成日期: <strong id="updateDate">2026-07-13</strong></div><div>共 <strong>4</strong> 个项目</div></div>
 </div>
 <div class="legend">
 <span class="legend-item"><span class="legend-dot milestone-import"></span> 产线导入</span>
@@ -94,7 +94,7 @@ body{font-family:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI","Pin
 </div>
 <div class="tooltip-overlay" id="tooltip"></div>
 <script>
-const projects=[{name:'CA3048',customer:'徐工重卡',product:'cECU',platform:'8650',line:'cECU组装&测试3线',milestones:[{type:'import',label:'产线导入',date:'2026-03-25'},{type:'pv',label:'PV交付',date:'2026-04-02'},{type:'ppap',label:'PPAP',date:'2026-08-15'},{type:'sop',label:'SOP',date:'2026-09-20'}]},{name:'CA132602',customer:'一汽解放',product:'cECU',platform:'8650',line:'cECU组装&测试3线',milestones:[{type:'import',label:'产线导入',date:'2026-03-25'},{type:'pv',label:'PV交付',date:'2026-06-10'},{type:'ppap',label:'PPAP',date:'2026-09-15'},{type:'sop',label:'SOP',date:'2026-09-30'}]},{name:'AD2407',customer:'—',product:'补盲雷达',platform:'—',line:'补盲雷达组装&测试1线',milestones:[{type:'import',label:'产线导入',date:null,note:'TBD'},{type:'pv',label:'PV交付',date:null,note:'TBD'},{type:'ppap',label:'PPAP',date:'2026-08-20'},{type:'sop',label:'SOP',date:'2026-08-30'}]},{name:'AD2603',customer:'上汽大通-易森动力',product:'无人物流车',platform:'8650',line:'无人物流车1线',milestones:[{type:'import',label:'产线导入',date:'2026-08-20'},{type:'pv',label:'PV交付',date:null,note:'N.A'},{type:'ppap',label:'PPAP',date:'2026-08-25'},{type:'sop',label:'SOP',date:'2026-08-30'}]}];
+const projects=[{name:"CA3048",customer:"徐工重卡",product:"cECU",platform:"8650",line:"cECU组装&测试3线",milestones:[{type:"import",label:"产线导入",date:"2026-03-25"},{type:"pv",label:"PV交付",date:"2026-03-26"},{type:"ppap",label:"PPAP",date:"2026-04-02"},{type:"sop",label:"SOP",date:"2026-08-15"}]},{name:"CA132602",customer:"一汽解放",product:"cECU",platform:"8650",line:"cECU组装&测试3线",milestones:[{type:"import",label:"产线导入",date:"2026-03-25"},{type:"pv",label:"PV交付",date:"2026-06-08"},{type:"ppap",label:"PPAP",date:"2026-06-10"},{type:"sop",label:"SOP",date:"2026-09-15"}]},{name:"AD2603",customer:"上汽大通-易森动力",product:"无人物流车一体仓",platform:"8650",line:"无人物流车1线",milestones:[{type:"import",label:"产线导入",date:"2026-08-20"},{type:"pv",label:"PV交付",date:"2026-08-25"},{type:"ppap",label:"PPAP",date:null,note:"N.A"},{type:"sop",label:"SOP",date:null,note:"N.A"}]},{name:"CA132601",customer:"重汽重卡",product:"cECU",platform:"8650",line:"cECU组装&测试3线",milestones:[{type:"import",label:"产线导入",date:"2026-03-25"},{type:"pv",label:"PV交付",date:"2026-08-05"},{type:"ppap",label:"PPAP",date:"2026-08-10"},{type:"sop",label:"SOP",date:"2026-11-15"}]}];
 const typeMeta={import:{cls:'import',label:'产线导入'},pv:{cls:'pv',label:'PV交付'},ppap:{cls:'ppap',label:'PPAP'},sop:{cls:'sop',label:'SOP'}};
 const S=new Date(2026,2,1),E=new Date(2026,9,31),T=E-S;
 function pct(d){if(!d)return null;const t=new Date(d);return isNaN(t.getTime())?null:Math.max(0,Math.min(100,((t-S)/T)*100))}
